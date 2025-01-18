@@ -386,3 +386,55 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPKTOK</title>
+
+    <!-- Firebase SDK for Firebase App and Firebase Authentication -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+
+    <!-- Firebase Config (Your credentials) -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyClnOwKx7q3vGLKK8p-aHcDZSMsuGDqkR0",
+            authDomain: "spktok-9a571.firebaseapp.com",
+            projectId: "spktok-9a571",
+            storageBucket: "spktok-9a571.appspot.com",
+            messagingSenderId: "512466246061",
+            appId: "1:512466246061:web:2fa4f1dd6e0db02442a924",
+            measurementId: "G-4PV2WTMZGZ"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();  // Firebase Authentication
+    </script>
+</head>
+<body>
+    <!-- Your website content -->
+    <div id="auth-container">
+        <button onclick="googleSignIn()">Login with Google</button>
+    </div>
+
+    <script>
+        // Google Sign-In Function
+        function googleSignIn() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    const user = result.user;
+                    console.log("User signed in: ", user);
+                    // You can now use the user info, e.g. display username or show the profile page
+                })
+                .catch((error) => {
+                    console.error("Error during Google sign-in: ", error);
+                });
+        }
+    </script>
+</body>
+</html>
+
