@@ -90,168 +90,13 @@
         .auth-container .auth-switch a:hover {
             text-decoration: underline;
         }
-
-        .auth-container .logo {
-            font-size: 32px;
-            font-weight: bold;
-            color: #1da1f2;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        /* Profile Page */
-        .profile-container {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            height: 100vh;
-            background-color: #1a1a1a;
-            color: white;
-        }
-
-        .profile-header {
-            width: 100%;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid #444;
-            position: relative;
-        }
-
-        .profile-picture {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background-color: #666;
-            margin: 20px auto;
-        }
-
-        .profile-username {
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .profile-stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 15px;
-            font-size: 16px;
-        }
-
-        .profile-stats div {
-            text-align: center;
-        }
-
-        .profile-content {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .divider {
-            width: 100%;
-            height: 1px;
-            background-color: #444;
-            margin: 20px 0;
-        }
-
-        .settings-icon {
-            font-size: 24px;
-            cursor: pointer;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-
-        .settings-icon:hover {
-            color: #1da1f2;
-        }
-
-        /* Pencil Edit Icon */
-        .pencil-edit-icon {
-            font-size: 24px;
-            cursor: pointer;
-            color: #1da1f2;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-        }
-
-        .pencil-edit-icon:hover {
-            color: #0a75d0;
-        }
-
-        .settings-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #333;
-            border-radius: 8px;
-            padding: 20px;
-            width: 300px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-        }
-
-        .settings-popup .close-btn {
-            float: right;
-            cursor: pointer;
-            color: #fff;
-            font-size: 18px;
-        }
-
-        .settings-popup .close-btn:hover {
-            color: #1da1f2;
-        }
-
-        .settings-popup .toggle {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logout-btn {
-            margin-top: 20px;
-            padding: 10px;
-            font-size: 16px;
-            background-color: #1da1f2;
-            border: none;
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .logout-btn:hover {
-            background-color: #1a94d6;
-        }
-
-        /* New Button Style */
-        .make-video-btn {
-            background-color: #1da1f2;
-            color: white;
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-            width: 200px;
-            text-align: center;
-        }
-
-        .make-video-btn:hover {
-            background-color: #1a94d6;
-        }
     </style>
 </head>
 <body>
 
     <!-- Login & Sign-Up Container -->
     <div class="auth-container" id="auth-container">
-        <div class="logo">SPKTOK</div>
+        <h2>SPKTOK</h2>
 
         <!-- Login Form -->
         <div id="login-form">
@@ -279,70 +124,23 @@
         </div>
     </div>
 
-    <!-- Profile Container -->
-    <div class="profile-container" id="profile-container">
-        <div class="profile-header">
-            <div class="profile-picture"></div>
-            <div class="profile-username" id="profile-username">@username</div>
-            <div class="pencil-edit-icon" onclick="editProfile()">✏️</div>
-            <div class="profile-stats">
-                <div>
-                    <strong id="following-count">0</strong><br>Following
-                </div>
-                <div>
-                    <strong id="followers-count">0</strong><br>Followers
-                </div>
-                <div>
-                    <strong id="likes-count">0</strong><br>Likes
-                </div>
-            </div>
-            <div class="settings-icon" onclick="openSettingsPopup()">...</div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="profile-content">
-            <p>Your videos will appear here.</p>
-            <button class="make-video-btn">Make a Video</button>
-        </div>
-    </div>
-
-    <!-- Settings Popup -->
-    <div class="settings-popup" id="settings-popup">
-        <span class="close-btn" onclick="closeSettingsPopup()">&times;</span>
-        <h3>Display Settings</h3>
-        <div class="toggle">
-            <span>Dark Mode</span>
-            <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode()">
-        </div>
-        <button class="logout-btn" onclick="logout()">Log Out</button>
-    </div>
-
     <script>
+        // Show Sign-Up form
         function showSignUp() {
             document.getElementById('login-form').classList.add('hidden');
             document.getElementById('signup-form').classList.remove('hidden');
         }
 
+        // Show Login form
         function showLogin() {
             document.getElementById('signup-form').classList.add('hidden');
             document.getElementById('login-form').classList.remove('hidden');
         }
 
-        function login(event) {
-            event.preventDefault();
-            const username = document.getElementById('login-username').value;
-            const password = document.getElementById('login-password').value;
-
-            if (username && password) {
-                showProfile(username);
-            } else {
-                alert("Please fill in both fields.");
-            }
-        }
-
+        // Sign-Up function
         function signUp(event) {
             event.preventDefault();
+
             const username = document.getElementById('signup-username').value;
             const password = document.getElementById('signup-password').value;
             const confirmPassword = document.getElementById('signup-confirm-password').value;
@@ -350,9 +148,17 @@
             // Check if passwords match
             if (password === confirmPassword) {
                 if (username && password) {
-                    // Ideally, you should store this information in a database or in local storage.
-                    // For now, let's assume the sign-up is successful and show the profile.
-                    showProfile(username);
+                    // Store user credentials in localStorage (for simplicity, using a local storage for this demo)
+                    let users = JSON.parse(localStorage.getItem('users')) || [];
+                    // Prevent duplicate usernames
+                    if (users.some(user => user.username === username)) {
+                        alert("Username already exists!");
+                    } else {
+                        users.push({ username: username, password: password });
+                        localStorage.setItem('users', JSON.stringify(users));
+                        alert("Sign-up successful! You can now log in.");
+                        showLogin(); // Switch to Login form
+                    }
                 } else {
                     alert("Please fill in both fields.");
                 }
@@ -361,80 +167,28 @@
             }
         }
 
-        function showProfile(username) {
-            document.getElementById('auth-container').style.display = 'none';
-            document.getElementById('profile-container').style.display = 'flex';
-            document.getElementById('profile-username').textContent = '@' + username;
-        }
+        // Login function
+        function login(event) {
+            event.preventDefault();
 
-        function openSettingsPopup() {
-            document.getElementById('settings-popup').style.display = 'block';
-        }
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
 
-        function closeSettingsPopup() {
-            document.getElementById('settings-popup').style.display = 'none';
-        }
+            // Get stored users from localStorage
+            let users = JSON.parse(localStorage.getItem('users')) || [];
 
-        function logout() {
-            document.getElementById('profile-container').style.display = 'none';
-            document.getElementById('auth-container').style.display = 'flex';
-        }
+            // Check if the user exists and passwords match
+            const user = users.find(user => user.username === username && user.password === password);
 
-        function editProfile() {
-            alert('Profile editing feature is coming soon!');
+            if (user) {
+                alert("Login successful! Welcome " + username);
+                // You can now redirect to the profile page or show user content
+            } else {
+                alert("Invalid username or password.");
+            }
         }
     </script>
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPKTOK</title>
 
-    <!-- Firebase SDK for Firebase App and Firebase Authentication -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-
-    <!-- Firebase Config (Your credentials) -->
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyClnOwKx7q3vGLKK8p-aHcDZSMsuGDqkR0",
-            authDomain: "spktok-9a571.firebaseapp.com",
-            projectId: "spktok-9a571",
-            storageBucket: "spktok-9a571.appspot.com",
-            messagingSenderId: "512466246061",
-            appId: "1:512466246061:web:2fa4f1dd6e0db02442a924",
-            measurementId: "G-4PV2WTMZGZ"
-        };
-
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();  // Firebase Authentication
-    </script>
-</head>
-<body>
-    <!-- Your website content -->
-    <div id="auth-container">
-        <button onclick="googleSignIn()">Login with Google</button>
-    </div>
-
-    <script>
-        // Google Sign-In Function
-        function googleSignIn() {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            auth.signInWithPopup(provider)
-                .then((result) => {
-                    const user = result.user;
-                    console.log("User signed in: ", user);
-                    // You can now use the user info, e.g. display username or show the profile page
-                })
-                .catch((error) => {
-                    console.error("Error during Google sign-in: ", error);
-                });
-        }
-    </script>
-</body>
-</html>
 
