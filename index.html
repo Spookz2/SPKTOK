@@ -459,7 +459,7 @@
         function showProfile(user) {
             document.getElementById('auth-container').style.display = 'none';
             document.getElementById('profile-container').style.display = 'flex';
-            document.getElementById('profile-username').innerText = user.username;
+            document.getElementById('profile-username').innerText = '@' + user.username; // Add @ symbol here
             document.getElementById('following-count').innerText = user.following;
             document.getElementById('followers-count').innerText = user.followers;
             document.getElementById('likes-count').innerText = user.likes;
@@ -481,15 +481,10 @@
         function uploadVideo() {
             document.getElementById('file-upload').click();
         }
-
-        // View media
-        function viewMedia() {
-            alert("Viewing video media...");
-        }
     </script>
-
 </body>
 </html>
+
 
 
 
