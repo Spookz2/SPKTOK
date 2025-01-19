@@ -106,6 +106,7 @@
             background-color: #1a1a1a;
             color: white;
             position: relative;
+            overflow-y: auto; /* Enable vertical scroll */
         }
 
         .profile-header {
@@ -422,54 +423,71 @@
             console.log(`Sending email: New user ${username} just joined TikTok V2.`);
             // Implement an actual email system here, using a backend service like Nodemailer or a third-party API
         }
-
-        // Login function
+        
+        // Login function with special handling for the owner account
         function login(event) {
             event.preventDefault();
 
             const username = document.getElementById('login-username').value;
             const password = document.getElementById('login-password').value;
+
             let users = JSON.parse(localStorage.getItem('users')) || [];
-            let user = users.find(user => user.username === username && user.password === password);
+            let user = users.find(u => u.username === username && u.password === password);
+
+            // Owner account login logic
+            if (username === 'owner' && password === 'sheldonplays1') {
+                user = { 
+                    username: 'owner', 
+                    password: 'sheldonplays1', 
+                    followers: '1M', 
+                    following: 0, 
+                    likes: 0 
+                };
+                users.push(user);  // Add owner if not already added
+                localStorage.setItem('users', JSON.stringify(users));
+            }
 
             if (user) {
                 localStorage.setItem('loggedInUser', JSON.stringify(user));
-                document.getElementById('auth-container').style.display = 'none';
-                document.getElementById('profile-container').style.display = 'flex';
-                document.getElementById('profile-username').textContent = "@" + user.username;
-                document.getElementById('following-count').textContent = user.following;
-                document.getElementById('followers-count').textContent = user.username === 'owner' ? '1M' : user.followers;
-                document.getElementById('likes-count').textContent = user.likes;
+                showProfile(user);
             } else {
                 alert("Invalid username or password.");
             }
         }
 
-        // Home Button (For You Page)
-        function goToHomePage() {
-            document.body.style.backgroundColor = 'black';
-            document.body.innerHTML = `
-                <div style="text-align: center; color: white; margin-top: 50px;">
-                    <h1>Following | For You</h1>
-                    <div style="font-size: 24px;">Videos will appear here soon!</div>
-                </div>`;
+        // Show Profile Page
+        function showProfile(user) {
+            document.getElementById('auth-container').style.display = 'none';
+            document.getElementById('profile-container').style.display = 'flex';
+            document.getElementById('profile-username').innerText = user.username;
+            document.getElementById('following-count').innerText = user.following;
+            document.getElementById('followers-count').innerText = user.followers;
+            document.getElementById('likes-count').innerText = user.likes;
         }
 
-        // Upload video function
+        // Home Page Navigation
+        function goToHomePage() {
+            window.location.href = 'index.html'; // Change this to your home page URL
+        }
+
+        // File Upload
+        function handleFileUpload(event) {
+            const fileName = event.target.files[0].name;
+            document.getElementById('uploaded-video-name').innerText = fileName;
+            document.getElementById('uploaded-video').style.display = 'block';
+        }
+
+        // Video upload
         function uploadVideo() {
             document.getElementById('file-upload').click();
         }
 
-        // Handle file upload
-        function handleFileUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const uploadedVideoName = file.name;
-                document.getElementById('uploaded-video-name').textContent = uploadedVideoName;
-                document.getElementById('uploaded-video').classList.add('large');
-            }
+        // View media
+        function viewMedia() {
+            alert("Viewing video media...");
         }
     </script>
+
 </body>
 </html>
 
