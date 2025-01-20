@@ -16,4 +16,35 @@ const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
 // Now you can use auth (login, sign up, etc.)
+// Firebase sign-up function
+function signUp(event) {
+    event.preventDefault();  // Prevent form submission
+
+    const email = document.getElementById('signup-email').value;  // Get email
+    const password = document.getElementById('signup-password').value;  // Get password
+
+    // Check if password matches confirm password
+    const confirmPassword = document.getElementById('signup-confirm-password').value;
+    if (password !== confirmPassword) {
+        alert("Passwords do not match");
+        return;
+    }
+
+    // Firebase sign-up process
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Signed up successfully
+            const user = userCredential.user;
+            console.log("User signed up: ", user);
+            // Redirect or update UI after successful sign-up
+            document.getElementById('auth-container').style.display = 'none';
+            document.getElementById('profile-container').style.display = 'flex';
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error("Error signing up: ", errorCode, errorMessage);
+            alert("Error signing up: " + errorMessage);
+        });
+}
 
