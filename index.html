@@ -1,9 +1,3 @@
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
-
-<!-- Your script.js (your custom JavaScript code) -->
-<script src="script.js"></script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -330,39 +324,29 @@
                     <strong id="likes-count">0</strong><br>Likes
                 </div>
             </div>
+            <span class="settings-icon">&#9881;</span>
         </div>
-
-        <div class="divider"></div>
-
-        <!-- Settings Icon -->
-        <div class="settings-icon" onclick="openSettings()">☰</div>
-
-        <!-- Arrow Button -->
-        <div class="arrow-button" onclick="goToFYP()">&lt;</div>
 
         <div class="profile-content">
-            <p>Your videos will appear here.</p>
-            <button class="upload-btn" id="upload-btn" onclick="triggerUpload()">Upload Video</button>
+            <button class="upload-btn" onclick="showUpload()">Upload a post</button>
+            <div class="divider"></div>
 
-            <!-- Video Upload Section -->
-            <div class="post-grid" id="post-grid">
-                <!-- Posts will appear here -->
+            <div class="post-grid">
+                <!-- Post grid goes here -->
             </div>
+        </div>
 
-            <input type="file" id="file-upload" class="hidden" onchange="handleFileUpload(event)">
+        <div class="fullscreen-container" id="fullscreen-container">
+            <div class="fullscreen-arrow" onclick="closeFullscreen()">←</div>
+            <img class="fullscreen-image" id="fullscreen-image" src="" alt="">
         </div>
     </div>
 
-    <!-- Fullscreen Image Overlay -->
-    <div class="fullscreen-container" id="fullscreen-container">
-        <img src="" id="fullscreen-image" class="fullscreen-image" />
-        <span class="fullscreen-arrow" onclick="closeFullscreen()">&lt;</span>
-    </div>
-
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-
+    <!-- Firebase Configuration -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js"></script>
     <script>
+        // Firebase Initialization
         const firebaseConfig = {
             apiKey: "AIzaSyClnOwKx7q3vGLKK8p-aHcDZSMsuGDqkR0",
             authDomain: "spktok-9a571.firebaseapp.com",
@@ -372,12 +356,9 @@
             appId: "1:512466246061:web:2fa4f1dd6e0db02442a924",
             measurementId: "G-4PV2WTMZGZ"
         };
-
-        // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+        const auth = firebase.auth(); // Now initialized after firebase
 
-        // Login function with email and password
         async function login(event) {
             event.preventDefault();
             const email = document.getElementById('login-email').value;
@@ -387,24 +368,42 @@
                 const userCredential = await auth.signInWithEmailAndPassword(email, password);
                 const user = userCredential.user;
 
-                // Special owner login
+                // Handle login success
                 if (email === 'nelexrst9@gmail.com') {
                     document.getElementById('auth-container').style.display = 'none';
                     document.getElementById('profile-container').style.display = 'flex';
+
+                    localStorage.setItem('profile', JSON.stringify({
+                        username: '@owner',
+                        following: 0,
+                        followers: '1M',
+                        likes: 0
+                    }));
+
                     document.getElementById('profile-username').textContent = '@owner';
                     document.getElementById('following-count').textContent = 0;
                     document.getElementById('followers-count').textContent = '1M';
                     document.getElementById('likes-count').textContent = 0;
-                    loadPostsFromLocalStorage();
                 } else {
                     alert('Login successful');
+                    document.getElementById('auth-container').style.display = 'none';
+                    document.getElementById('profile-container').style.display = 'flex';
+
+                    localStorage.setItem('profile', JSON.stringify({
+                        username: email,
+                        following: 0,
+                        followers: 0,
+                        likes: 0
+                    }));
+
+                    // Load posts (if any)
+                    loadPostsFromLocalStorage();
                 }
             } catch (error) {
                 alert(error.message);
             }
         }
 
-        // Sign-Up function with email and password
         async function signUp(event) {
             event.preventDefault();
             const email = document.getElementById('signup-email').value;
@@ -425,17 +424,29 @@
             }
         }
 
-        // Show Login Form
         function showLogin() {
             document.getElementById('signup-form').classList.add('hidden');
             document.getElementById('login-form').classList.remove('hidden');
         }
 
-        // Show Sign-Up Form
         function showSignUp() {
             document.getElementById('login-form').classList.add('hidden');
             document.getElementById('signup-form').classList.remove('hidden');
         }
+
+        function loadPostsFromLocalStorage() {
+            console.log('Loading posts...');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const userProfile = JSON.parse(localStorage.getItem('profile'));
+            if (userProfile) {
+                document.getElementById('profile-username').textContent = userProfile.username;
+                document.getElementById('following-count').textContent = userProfile.following;
+                document.getElementById('followers-count').textContent = userProfile.followers;
+                document.getElementById('likes-count').textContent = userProfile.likes;
+            }
+        });
     </script>
 </body>
 </html>
