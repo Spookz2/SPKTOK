@@ -15,7 +15,7 @@
         /* Body */
         body {
             font-family: Arial, sans-serif;
-            background-image: url('https://m.media-amazon.com/images/I/71a6NTQyirL.jpg');
+            background-image: url('https://m.media-amazon.com/images/I/71a6NTQyirL.jpg'); /* Your image URL */
             background-size: cover;
             background-position: center;
             color: #fff;
@@ -33,7 +33,7 @@
         }
 
         .auth-container {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for better contrast */
             border-radius: 8px;
             width: 350px;
             padding: 40px;
@@ -49,11 +49,11 @@
         }
 
         .auth-container h2 span.v {
-            color: blue;
+            color: blue; /* V in blue */
         }
 
         .auth-container h2 span.num {
-            color: #fe2c55;
+            color: #fe2c55; /* 2 in pink/red */
         }
 
         .auth-container form {
@@ -72,14 +72,14 @@
         }
 
         .auth-container input:focus {
-            border-color: #fe2c55;
+            border-color: #fe2c55; /* Red/pink color */
         }
 
         .auth-container button {
             padding: 12px;
             font-size: 16px;
             border: none;
-            background-color: #fe2c55;
+            background-color: #fe2c55; /* Red/pink color */
             color: white;
             border-radius: 8px;
             cursor: pointer;
@@ -87,7 +87,7 @@
         }
 
         .auth-container button:hover {
-            background-color: #ff4d6e;
+            background-color: #ff4d6e; /* Slightly lighter red for hover effect */
         }
 
         .auth-container .auth-switch {
@@ -97,7 +97,7 @@
         }
 
         .auth-container .auth-switch a {
-            color: #fe2c55;
+            color: #fe2c55; /* Red/pink color */
             text-decoration: none;
         }
 
@@ -115,7 +115,7 @@
             background-color: #1a1a1a;
             color: white;
             position: relative;
-            overflow-y: auto;
+            overflow-y: auto; /* Enable vertical scroll */
         }
 
         .profile-header {
@@ -169,7 +169,7 @@
             margin: 20px 0;
         }
 
-        /* Settings Icon */
+        /* Settings Icon (||| Button) */
         .settings-icon {
             font-size: 24px;
             cursor: pointer;
@@ -179,12 +179,12 @@
         }
 
         .settings-icon:hover {
-            color: #fe2c55;
+            color: #fe2c55; /* Red/pink color */
         }
 
         /* Upload Button */
         .upload-btn {
-            background-color: #fe2c55;
+            background-color: #fe2c55; /* Red/pink color */
             color: white;
             border: none;
             padding: 12px 20px;
@@ -197,10 +197,10 @@
         }
 
         .upload-btn:hover {
-            background-color: #ff4d6e;
+            background-color: #ff4d6e; /* Slightly lighter red for hover effect */
         }
 
-        /* Arrow Button */
+        /* Arrow Button (<) */
         .arrow-button {
             position: absolute;
             top: 20px;
@@ -212,19 +212,49 @@
         }
 
         .arrow-button:active {
-            color: #fe2c55;
+            color: #fe2c55; /* Pink/red when clicked */
         }
 
-        /* Grid for Uploaded Posts */
-        .post-grid {
+        /* FYP (For You Page) */
+        .fyp-container {
+            display: none;
+            background-color: #808080; /* Grey background */
+            color: white;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-btn {
+            position: absolute;
+            bottom: 20px;
+            background-color: #fe2c55;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .profile-btn:hover {
+            background-color: #ff4d6e; /* Slightly lighter red for hover effect */
+        }
+
+        /* Video Layout Boxes (Under Upload Button) */
+        .video-upload-section {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr); /* Three items per row */
             gap: 20px;
             width: 100%;
             margin-top: 20px;
         }
 
-        .post-box {
+        .video-upload-box {
             width: 100%;
             height: 250px;
             background-color: #444;
@@ -239,13 +269,27 @@
             cursor: pointer;
         }
 
-        .post-box img {
+        .video-upload-box img,
+        .video-upload-box video {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        /* Fullscreen Image Overlay */
+        .video-upload-box.large {
+            width: 350px;
+            height: 350px;
+        }
+
+        .video-upload-box:nth-child(odd) {
+            background-color: #555;
+        }
+
+        .video-upload-box:nth-child(even) {
+            background-color: #666;
+        }
+
+        /* Fullscreen View for Image */
         .fullscreen-container {
             position: fixed;
             top: 0;
@@ -272,6 +316,7 @@
             left: 20px;
             font-size: 36px;
             color: white;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -284,7 +329,7 @@
         <!-- Login Form -->
         <div id="login-form">
             <form onsubmit="login(event)">
-                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="text" id="login-username" placeholder="Username" required>
                 <input type="password" id="login-password" placeholder="Password" required>
                 <button type="submit">Login</button>
             </form>
@@ -296,7 +341,7 @@
         <!-- Sign-Up Form -->
         <div id="signup-form" class="hidden">
             <form onsubmit="signUp(event)">
-                <input type="email" id="signup-email" placeholder="Email" required>
+                <input type="text" id="signup-username" placeholder="Username" required>
                 <input type="password" id="signup-password" placeholder="Password" required>
                 <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required>
                 <button type="submit">Sign Up</button>
@@ -311,8 +356,7 @@
     <div class="profile-container" id="profile-container">
         <div class="profile-header">
             <div class="profile-picture"></div>
-            <div class="profile-username" id="profile-username">@username</div>
-
+            <div class="profile-username" id="profile-username">@</div>
             <div class="profile-stats">
                 <div id="following-box">
                     <strong id="following-count">0</strong><br>Following
@@ -324,132 +368,143 @@
                     <strong id="likes-count">0</strong><br>Likes
                 </div>
             </div>
-            <span class="settings-icon">&#9881;</span>
         </div>
+
+        <div class="divider"></div>
+
+        <!-- Settings Icon (||| Button) -->
+        <div class="settings-icon" onclick="openSettings()">☰</div>
+
+        <!-- Arrow Button (<) -->
+        <div class="arrow-button" onclick="goToFYP()">&lt;</div>
 
         <div class="profile-content">
-            <button class="upload-btn" onclick="showUpload()">Upload a post</button>
-            <div class="divider"></div>
+            <p>Your videos will appear here.</p>
+            <button class="upload-btn" id="upload-btn" onclick="triggerUpload()">Upload Video</button>
 
-            <div class="post-grid">
-                <!-- Post grid goes here -->
+            <!-- Video Upload Section -->
+            <div class="video-upload-section" id="video-upload-section">
+                <!-- Video boxes will appear here -->
             </div>
-        </div>
 
-        <div class="fullscreen-container" id="fullscreen-container">
-            <div class="fullscreen-arrow" onclick="closeFullscreen()">←</div>
-            <img class="fullscreen-image" id="fullscreen-image" src="" alt="">
+            <input type="file" id="file-upload" class="hidden" onchange="handleFileUpload(event)">
         </div>
     </div>
 
-    <!-- Firebase Configuration -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js"></script>
-    <script>
-        // Firebase Initialization
-        const firebaseConfig = {
-            apiKey: "AIzaSyClnOwKx7q3vGLKK8p-aHcDZSMsuGDqkR0",
-            authDomain: "spktok-9a571.firebaseapp.com",
-            projectId: "spktok-9a571",
-            storageBucket: "spktok-9a571.appspot.com",
-            messagingSenderId: "512466246061",
-            appId: "1:512466246061:web:2fa4f1dd6e0db02442a924",
-            measurementId: "G-4PV2WTMZGZ"
-        };
-        const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth(); // Now initialized after firebase
+    <!-- Fullscreen Image Overlay -->
+    <div class="fullscreen-container" id="fullscreen-container">
+        <img src="" id="fullscreen-image" class="fullscreen-image" />
+        <span class="fullscreen-arrow" onclick="closeFullscreen()">&lt;</span>
+    </div>
 
-        async function login(event) {
+    <!-- FYP (For You Page) -->
+    <div class="fyp-container" id="fyp-container">
+        <button class="profile-btn" onclick="goToProfile()">Profile</button>
+    </div>
+
+    <script>
+        // Trigger the file input to upload video or photo
+        function triggerUpload() {
+            document.getElementById('file-upload').click();
+        }
+
+        // Handle file upload and display images/videos
+        function handleFileUpload(event) {
+            const files = event.target.files;
+            const uploadSection = document.getElementById('video-upload-section');
+            const fileArray = Array.from(files);
+
+            // Loop through the files and create a new box for each
+            fileArray.forEach((file, index) => {
+                const fileBox = document.createElement('div');
+                fileBox.classList.add('video-upload-box');
+                fileBox.onclick = function() { openFullscreen(fileBox); };
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const content = document.createElement(file.type.includes('image') ? 'img' : 'video');
+                    content.src = e.target.result;
+
+                    if (file.type.includes('image')) {
+                        content.style.height = '100%';
+                        content.style.objectFit = 'cover';
+                    } else {
+                        content.style.height = '100%';
+                        content.setAttribute('controls', 'true');
+                    }
+
+                    fileBox.appendChild(content);
+                    uploadSection.appendChild(fileBox);
+                };
+
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Fullscreen Image
+        function openFullscreen(fileBox) {
+            const image = fileBox.querySelector('img');
+            if (image) {
+                const fullscreenContainer = document.getElementById('fullscreen-container');
+                const fullscreenImage = document.getElementById('fullscreen-image');
+                fullscreenImage.src = image.src;
+                fullscreenContainer.style.display = 'flex';
+            }
+        }
+
+        function closeFullscreen() {
+            const fullscreenContainer = document.getElementById('fullscreen-container');
+            fullscreenContainer.style.display = 'none';
+        }
+
+        // Login function with special handling for the owner account
+        function login(event) {
             event.preventDefault();
-            const email = document.getElementById('login-email').value;
+
+            const username = document.getElementById('login-username').value;
             const password = document.getElementById('login-password').value;
 
-            try {
-                const userCredential = await auth.signInWithEmailAndPassword(email, password);
-                const user = userCredential.user;
-
-                // Handle login success
-                if (email === 'nelexrst9@gmail.com') {
-                    document.getElementById('auth-container').style.display = 'none';
-                    document.getElementById('profile-container').style.display = 'flex';
-
-                    localStorage.setItem('profile', JSON.stringify({
-                        username: '@owner',
-                        following: 0,
-                        followers: '1M',
-                        likes: 0
-                    }));
-
-                    document.getElementById('profile-username').textContent = '@owner';
-                    document.getElementById('following-count').textContent = 0;
-                    document.getElementById('followers-count').textContent = '1M';
-                    document.getElementById('likes-count').textContent = 0;
-                } else {
-                    alert('Login successful');
-                    document.getElementById('auth-container').style.display = 'none';
-                    document.getElementById('profile-container').style.display = 'flex';
-
-                    localStorage.setItem('profile', JSON.stringify({
-                        username: email,
-                        following: 0,
-                        followers: 0,
-                        likes: 0
-                    }));
-
-                    // Load posts (if any)
-                    loadPostsFromLocalStorage();
-                }
-            } catch (error) {
-                alert(error.message);
+            if (username === 'owner' && password === 'sheldonplays1') {
+                document.getElementById('auth-container').style.display = 'none';
+                document.getElementById('profile-container').style.display = 'flex';
+                document.getElementById('profile-username').textContent = '@owner';
+                document.getElementById('following-count').textContent = 0;
+                document.getElementById('followers-count').textContent = '1M'; // 1 million followers
+                document.getElementById('likes-count').textContent = 0;
+            } else {
+                alert("Invalid username or password");
             }
         }
 
-        async function signUp(event) {
-            event.preventDefault();
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-            const confirmPassword = document.getElementById('signup-confirm-password').value;
-
-            if (password !== confirmPassword) {
-                alert('Passwords do not match');
-                return;
-            }
-
-            try {
-                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                alert('Sign-up successful');
-                showLogin();
-            } catch (error) {
-                alert(error.message);
-            }
+        // Go to FYP page when the < button is clicked
+        function goToFYP() {
+            document.getElementById('profile-container').style.display = 'none';
+            document.getElementById('fyp-container').style.display = 'flex';
         }
 
-        function showLogin() {
-            document.getElementById('signup-form').classList.add('hidden');
-            document.getElementById('login-form').classList.remove('hidden');
+        // Go back to Profile from FYP page
+        function goToProfile() {
+            document.getElementById('fyp-container').style.display = 'none';
+            document.getElementById('profile-container').style.display = 'flex';
         }
 
+        // Switch to Sign-Up form
         function showSignUp() {
-            document.getElementById('login-form').classList.add('hidden');
-            document.getElementById('signup-form').classList.remove('hidden');
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'block';
         }
 
-        function loadPostsFromLocalStorage() {
-            console.log('Loading posts...');
+        // Switch to Login form
+        function showLogin() {
+            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const userProfile = JSON.parse(localStorage.getItem('profile'));
-            if (userProfile) {
-                document.getElementById('profile-username').textContent = userProfile.username;
-                document.getElementById('following-count').textContent = userProfile.following;
-                document.getElementById('followers-count').textContent = userProfile.followers;
-                document.getElementById('likes-count').textContent = userProfile.likes;
-            }
-        });
     </script>
+
 </body>
 </html>
+
+
 
 
 
